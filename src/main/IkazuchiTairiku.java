@@ -1,6 +1,6 @@
 package main;
 
-public class SomenTairiku {
+public class IkazuchiTairiku {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

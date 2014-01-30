@@ -16,6 +16,8 @@ import twitter4j.TwitterException;
  * @author yayugu
  */
 public class MainWindow extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
+
 
     /** Creates new form MainWindow */
     public MainWindow() {
@@ -93,20 +95,24 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_labelCountClick
 
-    private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER 
-        	&& (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0){
-                try {
-					Data.getInstance().getTwitter().updateStatus(textArea.getText());
-	                textArea.setText("");
-				} catch (TwitterException e) {
-					e.printStackTrace();
-		        	JOptionPane.showMessageDialog(rootPane, e,
-		        			"Twitter Post Error", JOptionPane.ERROR_MESSAGE);
-				}
+    private void keyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_keyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Data.getInstance().getTwitter().updateStatus(textArea.getText());
+                        textArea.setText("");
+                    } catch (TwitterException e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(rootPane, e, "Twitter Post Error\n",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+            t.start();
         }
-    }//GEN-LAST:event_keyPressed
-
+    }// GEN-LAST:event_keyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea textArea;

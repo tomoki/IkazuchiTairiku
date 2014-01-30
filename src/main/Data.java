@@ -22,15 +22,17 @@ final class Data {
     private Twitter twitter;
     public RequestToken requestToken;
     public AccessToken accessToken = null;
-    public String consumerKey = "jzRAY2WOMGOzquTTxtvfQ";
-    public String consumerSecret = "DGlj0qwupf9KcqkbzUMnmbeo9HKpophBXJUT4rphk";
+    public final String consumerKey = "5QaWBaKJC1hX2LeOlCtFcw";
+    public final String consumerSecret = "6qXH3gCuiratVU0y5VYruh3QJDaIzKnuTBuqPZ0LJ4A";
+    private final String DATA_LOCATION = System.getProperty("user.home")+".ikazuchi_tairiku";
+    
 
     public void saveData(){
         try{
             BufferedWriter bw =
                 new BufferedWriter(
                     new OutputStreamWriter(
-                        new FileOutputStream("data.dat"), "UTF-8"));
+                        new FileOutputStream(DATA_LOCATION), "UTF-8"));
             bw.write(accessToken.getToken() + "\r\n");
             bw.write(accessToken.getTokenSecret() + "\r\n");
             bw.close();
@@ -43,7 +45,7 @@ final class Data {
         BufferedReader br =
             new BufferedReader(
                 new InputStreamReader(
-                    new FileInputStream("data.dat"),"UTF-8"));
+                    new FileInputStream(DATA_LOCATION),"UTF-8"));
         String token = br.readLine();
         String tokenSecret = br.readLine();
         br.close();
@@ -53,6 +55,7 @@ final class Data {
     }
     
 	public Twitter getTwitter() {
+	    if(twitter == null) instantiateTwitter();
 		return twitter;
 	}
 
@@ -68,8 +71,5 @@ final class Data {
 			return null;
 		}
 	}
-
-
-
 }
 
