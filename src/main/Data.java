@@ -24,10 +24,11 @@ final class Data {
     public AccessToken accessToken = null;
     public final String consumerKey = "5QaWBaKJC1hX2LeOlCtFcw";
     public final String consumerSecret = "6qXH3gCuiratVU0y5VYruh3QJDaIzKnuTBuqPZ0LJ4A";
-    private final String DATA_LOCATION = System.getProperty("user.home")+".ikazuchi_tairiku";
+    private final String DATA_LOCATION = System.getProperty("user.home")+"/.ikazuchi_tairiku";
     
 
     public void saveData(){
+        System.err.println(DATA_LOCATION + " <- config file.");
         try{
             BufferedWriter bw =
                 new BufferedWriter(

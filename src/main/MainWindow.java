@@ -39,7 +39,7 @@ public class MainWindow extends javax.swing.JFrame {
         javax.swing.JLabel labelCount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("そーめん大陸");
+        setTitle("雷大陸");
 
         textArea.setColumns(20);
         textArea.setLineWrap(true);
@@ -100,13 +100,15 @@ public class MainWindow extends javax.swing.JFrame {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    String s = textArea.getText();
                     try {
-                        Data.getInstance().getTwitter().updateStatus(textArea.getText());
                         textArea.setText("");
+                        Data.getInstance().getTwitter().updateStatus(s);
                     } catch (TwitterException e) {
                         e.printStackTrace();
                         JOptionPane.showMessageDialog(rootPane, e, "Twitter Post Error\n",
                                 JOptionPane.ERROR_MESSAGE);
+                        textArea.setText(s);
                     }
                 }
             });
